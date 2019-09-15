@@ -1,8 +1,8 @@
 #OBJS = 
 CF = -g -I. -Wall -c
-EXE = ncurses
+EXE = ncurses-game.out
 
 #ncurses: $OBJS
-NCurses:
+ncurses-game:
 	#g++ $(OBJS) -Wall -o $(EXE)
 	g++ -o $(EXE) -Wall main.cpp -lncurses
