@@ -7,6 +7,8 @@ class Entity {
 protected:
 	int posX = 0;
 	int posY = 0;
+	unsigned long currentTimeMilli;
+	unsigned long lastEnemyMoveTimeMilli = 0;
 	Direction direction = Direction::up;
 
 public:

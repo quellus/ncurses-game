@@ -18,7 +18,6 @@ void Game::startGameLoop() {
 
 void Game::gameLoop() {
 	while(true) {
-		currentTimeMilli = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
 		updateEnemyPosition();
 		printMap();
 		drawEnemyOnMap();
@@ -40,14 +39,7 @@ void Game::printMap()  {
 }
 
 void Game::updateEnemyPosition() {
-	if (currentTimeMilli - lastEnemyMoveTimeMilli >= 50) {
-		if (enemy.getPosX() <= 0) {
-			enemy.setPosX(99);
-		} else {
-			enemy.move(Direction::left);
-		}
-		lastEnemyMoveTimeMilli = currentTimeMilli;
-	}
+  enemy.move();
 }
 
 void Game::drawEnemyOnMap() {
