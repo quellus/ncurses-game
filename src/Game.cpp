@@ -12,6 +12,7 @@ void Game::startGameLoop() {
 	}
 	cbreak();
 	noecho();
+	spawnEnemies();
 	gameLoop();
 	endwin();
 }
@@ -19,8 +20,10 @@ void Game::startGameLoop() {
 void Game::gameLoop() {
 	while(true) {
 		updateEnemyPosition();
+		moveEnemies();
 		printMap();
 		drawEnemyOnMap();
+		drawEnemiesOnMap();
 		drawPlayerOnMap();
 
 		int charCode = getch();
@@ -31,6 +34,13 @@ void Game::gameLoop() {
 
 }
 
+
+void Game::spawnEnemies() {
+	EntityFactory enemyFactory = EntityFactory();
+	for (int i = 0; i < enemyCount; i++) {
+		enemies[i] = enemyFactory.spawnEnemy();
+	}
+}
 
 void Game::printMap()  {
 	for (int y = 0; y < maxy; y++) {
@@ -44,6 +54,13 @@ void Game::updateEnemyPosition() {
 
 void Game::drawEnemyOnMap() {
 	mvwprintw(window, enemy.getPosY(), enemy.getPosX(), "x");
+}
+
+void Game::drawEnemiesOnMap() {
+	for (int i = 0; i < enemyCount; i++) {
+		Enemy currEnemy = enemies[i];
+		mvwprintw(window, currEnemy.getPosY(), currEnemy.getPosX(), "x");
+	}
 }
 
 void Game::drawPlayerOnMap() {
@@ -63,6 +80,12 @@ void Game::drawPlayerOnMap() {
 			break;
 	}
 	mvwprintw(window, player.getPosY(), player.getPosX(), playerChar);
+}
+
+void Game::moveEnemies() {
+	for (int i = 0; i < enemyCount; i++) {
+		enemies[i].move();
+	}
 }
 
 bool Game::keyboardInput(int charCode) {
