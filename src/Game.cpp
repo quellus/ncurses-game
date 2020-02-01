@@ -64,7 +64,7 @@ void Game::drawEnemiesOnMap() {
 }
 
 void Game::drawPlayerOnMap() {
-	char* playerChar = "^";
+	const char* playerChar = "^";
 	switch(player.getDirection()) {
 		case Direction::up:
 			playerChar = "^";
@@ -105,6 +105,9 @@ bool Game::keyboardInput(int charCode) {
 		case KEY_RIGHT:
 			player.move(Direction::right);
 			break;
+		default:
+			return false;
 	}
+	return true;
 }
 
