@@ -14,6 +14,8 @@ protected:
 public:
 	Entity() {}
 	Entity(int posX, int posY) {this->posX = posX; this->posY = posY;}
+  void setPosX(int newPosX) {posX = newPosX;}
+  void setPosY(int newPosY) {posX = newPosY;}
 	int getPosX() {return posX;}
 	int getPosY() {return posY;}
 	Direction getDirection() {return direction;}

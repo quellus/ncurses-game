@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::startGameLoop() {
+Game::Game() {
 	window = initscr();
 	keypad(window, true);
 	nodelay(window, true);
@@ -12,39 +12,37 @@ void Game::startGameLoop() {
 	}
 	cbreak();
 	noecho();
-	spawnEnemies();
-	gameLoop();
+	enemies.spawnEnemies();
+}
+
+Game::~Game() {
 	endwin();
 }
 
-void Game::gameLoop() {
-	while(true) {
-		updateEnemyPosition();
-		moveEnemies();
-		printMap();
-		drawEnemyOnMap();
-		drawEnemiesOnMap();
-		drawPlayerOnMap();
+void Game::update() {
+  updateEnemyPosition();
+  enemies.moveEnemies();
+  printMap();
+  drawEnemyOnMap();
+  drawEnemiesOnMap();
+  drawPlayerOnMap();
 
-		int charCode = getch();
-		if (charCode != ERR) {
-			keyboardInput(charCode);
-		}
-	}
-
-}
-
-
-void Game::spawnEnemies() {
-	EntityFactory enemyFactory = EntityFactory();
-	for (int i = 0; i < enemyCount; i++) {
-		enemies[i] = enemyFactory.spawnEnemy();
-	}
+  int charCode = getch();
+  if (charCode != ERR) {
+    keyboardInput(charCode);
+  }
 }
 
 void Game::printMap()  {
 	for (int y = 0; y < maxy; y++) {
 		mvwprintw(window, y, 0, map[y]);
+	}
+}
+
+void Game::drawEnemiesOnMap() {
+	for (int i = 0; i < enemyCount; i++) {
+		Enemy currEnemy = enemies.enemies[i];
+		mvwprintw(window, currEnemy.getPosY(), currEnemy.getPosX(), "x");
 	}
 }
 
@@ -54,13 +52,6 @@ void Game::updateEnemyPosition() {
 
 void Game::drawEnemyOnMap() {
 	mvwprintw(window, enemy.getPosY(), enemy.getPosX(), "x");
-}
-
-void Game::drawEnemiesOnMap() {
-	for (int i = 0; i < enemyCount; i++) {
-		Enemy currEnemy = enemies[i];
-		mvwprintw(window, currEnemy.getPosY(), currEnemy.getPosX(), "x");
-	}
 }
 
 void Game::drawPlayerOnMap() {
@@ -82,26 +73,24 @@ void Game::drawPlayerOnMap() {
 	mvwprintw(window, player.getPosY(), player.getPosX(), playerChar);
 }
 
-void Game::moveEnemies() {
-	for (int i = 0; i < enemyCount; i++) {
-		enemies[i].move();
-	}
-}
-
 bool Game::keyboardInput(int charCode) {
 	switch(charCode) {
+    case 'k':
 		case KEY_UP:
 			player.move(Direction::up);
 			break;
 
+    case 'j':
 		case KEY_DOWN:
 			player.move(Direction::down);
 			break;
 			
+    case 'h':
 		case KEY_LEFT:
 			player.move(Direction::left);
 			break;
 
+    case 'l':
 		case KEY_RIGHT:
 			player.move(Direction::right);
 			break;
