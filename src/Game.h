@@ -19,6 +19,8 @@ private:
 	char* stringToPrint;
 	char map[100][101];
 	WINDOW* window;
+  unsigned int ticksSinceLastEnemySpawn = 0;
+  unsigned int ticksBetweenEnemySpawn = 1000;
 
 public:
 	Game();

@@ -12,7 +12,8 @@ Game::Game() {
 	}
 	cbreak();
 	noecho();
-	enemies.spawnEnemies(5);
+  
+  enemies.spawnEnemies(5);
 }
 
 Game::~Game() {
@@ -20,6 +21,12 @@ Game::~Game() {
 }
 
 void Game::update() {
+  if (ticksSinceLastEnemySpawn >= ticksBetweenEnemySpawn) {
+    enemies.spawnNewEnemy();
+    ticksSinceLastEnemySpawn  = 0;
+  } else {
+    ticksSinceLastEnemySpawn++;
+  }
   updateEnemyPosition();
   enemies.moveEnemies();
   printMap();

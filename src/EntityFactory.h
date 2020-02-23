@@ -7,7 +7,7 @@
 class EntityFactory {
 public:
 	Enemy spawnEnemy() {
-		return Enemy(10, 10);
+		return Enemy(0, 10);
 	}
 
 	Player spawnPlayer() {
