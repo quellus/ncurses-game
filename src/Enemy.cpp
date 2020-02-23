@@ -1,16 +1,17 @@
 #include "Enemy.h"
 
 void Enemy::move() {
-	unsigned long currentTimeMilli = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
-	//if (currentTimeMilli - lastEnemyMoveTimeMilli >= 50) {
+	if (ticksSinceLastMove >= ticksBetweenMove) {
 		if (posX <= 0) {
 			posX = 99;
 			posY = rand() % 50;
 		} else {
 			move(Direction::left);
 		}
-		//lastEnemyMoveTimeMilli = currentTimeMilli;
-	//}
+    ticksSinceLastMove = 0;
+	} else {
+    ticksSinceLastMove++;
+  }
 }
 
 void Enemy::move(Direction direction) {

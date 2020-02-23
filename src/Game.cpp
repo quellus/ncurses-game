@@ -12,7 +12,7 @@ Game::Game() {
 	}
 	cbreak();
 	noecho();
-	enemies.spawnEnemies();
+	enemies.spawnEnemies(5);
 }
 
 Game::~Game() {
@@ -29,7 +29,12 @@ void Game::update() {
 
   int charCode = getch();
   if (charCode != ERR) {
-    keyboardInput(charCode);
+    getKeyboardInputAndMovePlayer(charCode);
+  }
+  
+  if (isPlayerCollision()) {
+    endwin();
+    exit(0);
   }
 }
 
@@ -40,14 +45,39 @@ void Game::printMap()  {
 }
 
 void Game::drawEnemiesOnMap() {
-	for (int i = 0; i < enemyCount; i++) {
-		Enemy currEnemy = enemies.enemies[i];
-		mvwprintw(window, currEnemy.getPosY(), currEnemy.getPosX(), "x");
-	}
+  std::list<Enemy>::iterator it;
+  std::list<Enemy> enemiesList = enemies.getList();
+  for (it = enemiesList.begin(); it != enemiesList.end(); ++it){
+		mvwprintw(window, it->getPosY(), it->getPosX(), "x");
+  }
+	//for (int i = 0; i < enemies.enemyCount; i++) {
+	//	Enemy currEnemy = enemies.enemies[i];
+	//	mvwprintw(window, currEnemy.getPosY(), currEnemy.getPosX(), "x");
+	//}
 }
 
 void Game::updateEnemyPosition() {
   enemy.move();
+}
+
+
+bool Game::isPlayerCollision() {
+  std::list<Enemy>::iterator it;
+  std::list<Enemy> enemiesList = enemies.getList();
+  for (it = enemiesList.begin(); it != enemiesList.end(); ++it){
+    if (it->getPosX() == player.getPosX() && it->getPosY() == player.getPosY()) {
+      return true;
+    }
+  }
+  return false;
+
+  //for (int i = 0; i < enemies.enemyCount; i++) {
+  //  Enemy currEnemy = enemies.enemies[i];
+  //  if (currEnemy.getPosX() == player.getPosX() && currEnemy.getPosY() == player.getPosY()) {
+  //    return true;
+  //  }
+  //}
+  //return false;
 }
 
 void Game::drawEnemyOnMap() {
@@ -73,7 +103,7 @@ void Game::drawPlayerOnMap() {
 	mvwprintw(window, player.getPosY(), player.getPosX(), playerChar);
 }
 
-bool Game::keyboardInput(int charCode) {
+bool Game::getKeyboardInputAndMovePlayer(int charCode) {
 	switch(charCode) {
     case 'k':
 		case KEY_UP:

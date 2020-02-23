@@ -3,15 +3,18 @@
 
 #include "Enemy.h"
 #include "EntityFactory.h"
+#include <list>
 
 class Enemies {
 private:
-	int enemyCount = 5;
+	std::list<Enemy> enemies;
 
 public:
-	Enemy enemies[5];
-	void spawnEnemies();
+  Enemies();
+	void spawnEnemies(int count);
+  void spawnNewEnemy();
 	void moveEnemies();
+  std::list<Enemy> getList();
 };
 
 #endif

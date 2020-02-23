@@ -16,7 +16,6 @@ private:
 	Player player = Player();
 	Enemy enemy = EntityFactory().spawnEnemy();
   Enemies enemies;
-	int enemyCount = 5;
 	char* stringToPrint;
 	char map[100][101];
 	WINDOW* window;
@@ -27,10 +26,11 @@ public:
 	void update();
 	void printMap();
 	void updateEnemyPosition();
+  bool isPlayerCollision();
 	void drawEnemyOnMap();
 	void drawEnemiesOnMap();
 	void drawPlayerOnMap();
-	bool keyboardInput(int charCode);
+	bool getKeyboardInputAndMovePlayer(int charCode);
 };
 
 #endif

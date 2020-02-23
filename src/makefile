@@ -11,10 +11,10 @@ main.o: main.cpp Game.h
 Game.o: Game.h Game.cpp Player.h Direction.h Enemies.h Enemy.h
 	g++ Game.cpp $(CF) -lncurses
 
-Enemies.o: Enemy.h
+Enemies.o: Enemies.h Enemies.cpp Enemy.h EntityFactory.h
 	g++ Enemies.cpp $(CF)
 
-Enemy.o: Enemy.h Enemy.cpp Entity.h
+Enemy.o: Enemy.h Enemy.cpp Entity.h 
 	g++ Enemy.cpp $(CF)
 
 Player.o: Player.h Player.cpp Direction.h Entity.h

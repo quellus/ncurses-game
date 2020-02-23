@@ -8,7 +8,7 @@ int main() {
   
 	while(true) {
     unsigned long currentTimeMilli = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
-    if (currentTimeMilli - lastTickTimeMilli >= 20) {
+    if (currentTimeMilli - lastTickTimeMilli >= 5) {
       g.update();
       lastTickTimeMilli = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
     }

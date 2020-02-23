@@ -8,7 +8,8 @@
 
 class Enemy: public Entity {
 private:
-	unsigned long lastEnemyMoveTimeMilli = 0;
+  unsigned long ticksBetweenMove = 5;
+	unsigned long ticksSinceLastMove = 0;
 public:
 	Enemy() {}
 	Enemy(int posX, int posY) {this->posX = posX; this->posY = posY;}
