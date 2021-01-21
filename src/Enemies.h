@@ -6,15 +6,15 @@
 #include <list>
 
 class Enemies {
-private:
-	std::list<Enemy> enemies;
-
 public:
   Enemies();
 	void spawnEnemies(int count);
   void spawnNewEnemy();
 	void moveEnemies();
   std::list<Enemy> getList();
+
+private:
+	std::list<Enemy> enemies;
 };
 
 #endif
