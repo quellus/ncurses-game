@@ -10,18 +10,6 @@
 #include "EntityFactory.h"
 
 class Game {
-private:
-	int maxx = 100;
-	int maxy = 100;
-	Player player = Player();
-	Enemy enemy = EntityFactory().spawnEnemy();
-  Enemies enemies;
-	char* stringToPrint;
-	char map[100][101];
-	WINDOW* window;
-  unsigned int ticksSinceLastEnemySpawn = 0;
-  unsigned int ticksBetweenEnemySpawn = 1000;
-
 public:
 	Game();
   ~Game();
@@ -33,6 +21,18 @@ public:
 	void drawEnemiesOnMap();
 	void drawPlayerOnMap();
 	bool getKeyboardInputAndMovePlayer(int charCode);
+
+private:
+	int maxx = 100;
+	int maxy = 100;
+	Player player = Player();
+	Enemy enemy = EntityFactory().spawnEnemy();
+  Enemies enemies;
+	char* stringToPrint;
+	char map[100][101];
+	WINDOW* window;
+  unsigned int ticksSinceLastEnemySpawn = 0;
+  unsigned int ticksBetweenEnemySpawn = 1000;
 };
 
 #endif

@@ -7,9 +7,6 @@
 #include <cstdlib>
 
 class Enemy: public Entity {
-private:
-  unsigned long ticksBetweenMove = 5;
-	unsigned long ticksSinceLastMove = 0;
 public:
 	Enemy() {}
 	Enemy(int posX, int posY) {this->posX = posX; this->posY = posY;}
@@ -17,6 +14,10 @@ public:
 	void move();
 	void move(Direction direction);
 	void move(int posX, int posY) {this->posX = posX; this->posY = posY;}
+
+private:
+  unsigned long ticksBetweenMove = 5;
+	unsigned long ticksSinceLastMove = 0;
 };
 
 #endif

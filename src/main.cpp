@@ -2,11 +2,11 @@
 #include <iostream>
 
 int main() {
-	Game g = Game();
-	unsigned long lastTickTimeMilli = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
+  Game g = Game();
+  unsigned long lastTickTimeMilli = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
 
-  
-	while(true) {
+
+  while(true) {
     unsigned long currentTimeMilli = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
     if (currentTimeMilli - lastTickTimeMilli >= 5) {
       g.update();
@@ -14,5 +14,5 @@ int main() {
     }
   }
 
-	return 0;
+  return 0;
 }
